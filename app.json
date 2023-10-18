@@ -1,49 +1,69 @@
 {
-    "name": "n8n",
-    "description": "deploy n8n to heroku without any hassle",
-    "keywords": [
-      "n8n",
-      "node",
-      "automation"
-    ],
-    "website": "https://n8n.io",
-    "repository": "https://github.com/n8n-io/n8n-heroku",
-    "logo": "https://raw.githubusercontent.com/n8n-io/n8n-heroku/main/n8n_logo.png",
-    "success_url": "/",
-    "stack": "container",
-    "env": {
-      "GENERIC_TIMEZONE": {
-        "description": "Time Zone to use with Heroku. You can find the name of your timezone for example here: https://momentjs.com/timezone/.",
-        "value": "Europe/Berlin"
-      },
-      "N8N_ENCRYPTION_KEY": {
-        "description": "Set the n8n encryption key to a static value to avoid Heroku overriding it (causing authentication to fail).",
-        "value": "change-me-to-something-else"
-      },
-      "WEBHOOK_URL": {
-        "description": "Replace <appname> with your Heroku application name. This will ensure the correct webhook URLs are being shown in n8n.",
-        "value": "https://<appname>.herokuapp.com"
-      },
-      "PGSSLMODE": {
-        "description": "SSL is required to connect to Postgres on Heroku",
-        "value": "no-verify"
+  "name": "n8n",
+  "description": "deploy n8n to heroku without any hassle",
+  "keywords": ["n8n", "node", "automation"],
+  "website": "https://n8n.io",
+  "repository": "https://github.com/n8n-io/n8n-heroku",
+  "logo": "https://raw.githubusercontent.com/n8n-io/n8n-heroku/main/n8n_logo.png",
+  "success_url": "/",
+  "stack": "container",
+  "env": {
+    "GENERIC_TIMEZONE": {
+      "description": "Time Zone to use with Heroku. You can find the name of your timezone for example here: https://momentjs.com/timezone/.",
+      "value": "Europe/Madrid"
+    },
+    "N8N_ENCRYPTION_KEY": {
+      "description": "Set the n8n encryption key to a static value to avoid Heroku overriding it (causing authentication to fail).",
+      "value": "change-me-to-something-else"
+    },
+    "N8N_EDITOR_BASE_URL": {
+      "description": "Public URL where users can access the editor. Also used for emails sent from N8N.",
+      "value": "https://n8n.kelisto.es"
+    },
+    "N8N_EMAIL_MODE": {
+      "description": "Use of SMTP",
+      "value": "smtp"
+    },
+    "N8N_SMTP_HOST": {
+      "description": "SMTP server name",
+      "value": "smtp.mailgun.org"
+    },
+    "N8N_SMTP_USER": {
+      "description": "SMTP username",
+      "value": "n8n@mg.kelisto.es"
+    },
+    "N8N_SMTP_PASS": {
+      "description": "SMTP password",
+      "value": "add-your-value-here"
+    },
+    "N8N_SMTP_SENDER": {
+      "description": "You can select the sender name from the sender addresses. Example: contact@n8n.com",
+      "value": "no-reply@kelisto.es"
+    },
+    "WEBHOOK_URL": {
+      "description": "Replace with your Heroku application name. This will ensure the correct webhook URLs are being shown in n8n.",
+      "value": "https://n8n.kelisto.es"
+    },
+    "PGSSLMODE": {
+      "description": "SSL is required to connect to Postgres on Heroku",
+      "value": "no-verify"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "standard-1x"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "14"
       }
     },
-    "formation": {
-      "web": {
-        "quantity": 1,
-        "size": "eco"
-      }
-    },
-    "addons": [
-      {
-        "plan": "heroku-postgresql",
-        "options": {
-          "version": "14"
-        }
-      },
-      {
-        "plan": "papertrail:choklad"
-      }
-    ]
-  }
+    {
+      "plan": "papertrail:choklad"
+    }
+  ]
+}
